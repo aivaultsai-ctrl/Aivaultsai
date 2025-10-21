@@ -1,0 +1,9 @@
+{
+  "liveServer.settings.root": "/functions",
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.ignoreFiles": [
+    "**/.vscode/**",
+    "**/*.py",
+    "**/node_modules/**"
+  ]
+}

@@ -1,0 +1,19 @@
+// C:\ai_agent\functions\tsconfig.json
+{
+  "compilerOptions": {
+    // ... other options ...
+    "target": "es2020", // Or another recent ES version
+    "module": "commonjs", // Firebase Functions often run on CommonJS
+    "outDir": "./lib", // Make sure this points to your output directory
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true, // Good practice
+    // ... other options ...
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

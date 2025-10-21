@@ -1,0 +1,6 @@
+{
+  "type": "blog_from_keywords",
+  "payload": { "keywords": "AI tools, small business, automation", "language": "nl" },
+  "status": "queued",
+  "createdAt": {"_serverTimestamp": true}
+}
