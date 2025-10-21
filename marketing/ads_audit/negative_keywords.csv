@@ -1,0 +1,9 @@
+Campaign,Ad Group,Match Type,Negative Keyword,Note
+AI Lead Bot NL,*,Exact,gratis ai bot,Irrelevant - 'free' queries
+AI Lead Bot NL,*,Exact,ai training cursus,Low buyer intent
+AI Lead Bot NL,*,Phrase,"leadgeneratie sjabloon",Low intent / template search
+AI Lead Bot NL,*,Phrase,"wat is een ai bot",Informational query
+AI Lead Bot NL,*,Broad,handleiding,Informational
+AI Lead Bot NL,*,Broad,student,Not target audience
+AI Lead Bot NL,*,Broad,vacature,Job seeker / recruitment
+AI Lead Bot NL,*,Broad,tool vergelijken,Comparative research
