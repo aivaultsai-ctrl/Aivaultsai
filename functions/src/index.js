@@ -106,6 +106,13 @@ const sheetsAuth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 const sheets = google.sheets({ version: 'v4', auth: sheetsAuth });
+// SendGrid nurture helper (optional; file may not exist in older checkouts)
+let startNurtureSequence = null;
+try {
+    startNurtureSequence = require('./sendgrid_nurture').startNurtureSequence;
+} catch (e) {
+    console.warn('[leadReceiver] sendgrid_nurture helper not available:', e && e.message);
+}
 
 async function getGeminiKeyFromSecretManager(name) {
     if (!SecretClientAvailable) return null;
@@ -320,11 +327,53 @@ exports.leadReceiver = onRequest(async (req, res) => {
         // Append to sheet
         await appendLeadToSheet({ name, email, company, message });
 
-    // Redirect the browser to a thank-you page on the main site so standard HTML forms work.
-    // Use 303 See Other for POST -> GET redirect semantics.
-    const thankYouUrl = 'https://gen-lang-client-0919803756.web.app/?lead=success';
-    console.log('[leadReceiver] Redirecting to', thankYouUrl);
-    return res.redirect(303, thankYouUrl);
+        // Fire-and-forget: start nurture sequence in background if helper is available.
+        // We run with retries and exponential backoff but do NOT block the HTTP response.
+        if (typeof startNurtureSequence === 'function') {
+            (async () => {
+                try {
+                    const leadData = {
+                        firstName: (name || '').split(' ')[0] || '',
+                        lastName: (name || '').split(' ').slice(1).join(' ') || '',
+                        email: email,
+                        company: company || '',
+                        contactMethodUrl: process.env.CONTACT_METHOD_URL || 'https://gen-lang-client-0919803756.web.app/#contact'
+                    };
+
+                    const maxAttempts = 3;
+                    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+                        try {
+                            const result = await startNurtureSequence(leadData, 'roi_calculator');
+                            if (result && result.ok) {
+                                console.log(`[leadReceiver] Nurture started (attempt ${attempt}) for ${email}`);
+                                break;
+                            } else {
+                                console.warn(`[leadReceiver] Nurture attempt ${attempt} failed for ${email}:`, result && result.error ? result.error : result);
+                            }
+                        } catch (sendErr) {
+                            console.error(`[leadReceiver] SendGrid attempt ${attempt} threw for ${email}:`, sendErr && sendErr.message ? sendErr.message : sendErr);
+                        }
+                        // backoff before next attempt
+                        if (attempt < maxAttempts) {
+                            const backoffMs = 500 * Math.pow(2, attempt); // 1s, 2s, ...
+                            await new Promise(r => setTimeout(r, backoffMs));
+                        } else {
+                            console.error(`[leadReceiver] Nurture failed after ${maxAttempts} attempts for ${email}`);
+                        }
+                    }
+                } catch (bgErr) {
+                    console.error('[leadReceiver] Unexpected error in nurture background task:', bgErr);
+                }
+            })();
+        } else {
+            console.log('[leadReceiver] startNurtureSequence not configured; skipping nurture.');
+        }
+
+        // Redirect the browser to a thank-you page on the main site so standard HTML forms work.
+        // Use 303 See Other for POST -> GET redirect semantics.
+        const thankYouUrl = 'https://gen-lang-client-0919803756.web.app/?lead=success';
+        console.log('[leadReceiver] Redirecting to', thankYouUrl);
+        return res.redirect(303, thankYouUrl);
     } catch (err) {
         console.error('[leadReceiver] Error handling lead:', err && err.message ? err.message : err);
         return res.status(500).send({ status: 'error', message: 'Failed to save lead: ' + (err && err.message ? err.message : '') });
