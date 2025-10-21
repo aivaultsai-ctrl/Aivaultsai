@@ -1,0 +1,9 @@
+Hallo {{firstName}},
+
+Een van onze klanten realiseerde 64,071% ROI in het eerste jaar door AIVaultsAI te gebruiken.
+
+Lees de case study:
+{{contactMethodUrl}}/case-study?utm_source=nurture&utm_medium=email&utm_campaign=nurture_3
+
+Met vriendelijke groet,
+AIVaultsAI Team

@@ -1,0 +1,9 @@
+Hallo {{firstName}},
+
+Dit is onze laatste herinnering — plan uw demo of vraag om meer informatie.
+
+Claim uw slot:
+{{contactMethodUrl}}/final-offer?utm_source=nurture&utm_medium=email&utm_campaign=nurture_5
+
+Met vriendelijke groet,
+AIVaultsAI Team

@@ -1,0 +1,9 @@
+Beste {{firstName}},
+
+Plan nu uw persoonlijke demo — plekken zijn beperkt.
+
+Boek hier:
+{{contactMethodUrl}}/book?utm_source=nurture&utm_medium=email&utm_campaign=nurture_4
+
+Groeten,
+AIVaultsAI Team

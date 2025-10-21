@@ -1,0 +1,9 @@
+Beste {{firstName}},
+
+Onze klanten besparen gemiddeld 95% aan handmatige administratie. Wilt u weten hoe?
+
+Bekijk een korte walkthrough en plan een demo:
+{{contactMethodUrl}}?utm_source=nurture&utm_medium=email&utm_campaign=nurture_2
+
+Groeten,
+AIVaultsAI

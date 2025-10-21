@@ -1,0 +1,11 @@
+{
+  "sequenceName": "aivaultsai_nurture_5",
+  "description": "5-step nurture sequence to convert leads to demo bookings",
+  "emails": [
+    { "id": "email-1", "delayDays": 0, "subject": "Welkom bij AIVaultsAI — uw gratis ROI-analyse staat klaar" },
+    { "id": "email-2", "delayDays": 1, "subject": "Hoe u 95% minder administratie krijgt met AI" },
+    { "id": "email-3", "delayDays": 3, "subject": "Case study: 64,071% ROI in jaar 1" },
+    { "id": "email-4", "delayDays": 7, "subject": "Plan direct een demo — beschikbaarheid beperkt" },
+    { "id": "email-5", "delayDays": 14, "subject": "Laatste kans: optimaliseer uw leadflow met AI" }
+  ]
+}

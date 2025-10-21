@@ -1,0 +1,11 @@
+Welkom {{firstName}},
+
+Bedankt voor uw interesse in AIVaultsAI. Uw gratis ROI-analyse is gereed en wordt momenteel gegenereerd.
+
+Bekijk uw analyse:
+{{contactMethodUrl}}?utm_source=nurture&utm_medium=email&utm_campaign=nurture_1
+
+Hebt u vragen? Reageer op deze e-mail — we lezen elk bericht persoonlijk.
+
+Met vriendelijke groet,
+AIVaultsAI Team
